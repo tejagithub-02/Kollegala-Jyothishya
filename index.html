@@ -684,10 +684,11 @@
         <form id="contactForm">
           <input type="text" name="name" placeholder="Your Name" required>
           <input type="email" name="email" placeholder="Your Email" required>
-          <input type="tel" name="phone" placeholder="Your Phone" required>
+          <input type="tel" name="phone" placeholder="Your Phone (optional)">
           <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
           <button type="submit">Send Message</button>
         </form>
+        
       </div>
     </div>
 
@@ -888,12 +889,11 @@
 </style>
 
 <script>
-// WhatsApp form submission
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault(); 
   var name = this.name.value;
   var email = this.email.value;
-  var phone = this.phone.value;
+  var phone = this.phone.value ? this.phone.value : "Not Provided";
   var message = this.message.value;
   
   var whatsappMessage = `Hello Pandit Anil Kumar,%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AMessage: ${message}`;
@@ -901,6 +901,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   
   window.open(whatsappURL, '_blank');
 });
+
 </script>
 
 
