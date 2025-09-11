@@ -161,20 +161,25 @@
   .nav-menu {
     display: flex;
     flex-direction: column;
-    position: fixed;      /* fixed for slide effect */
+    position: fixed;
     top: 0;
-    right: -100%;         /* hidden by default */
+    right: 0;
     height: 100%;
     width: 250px;
     background: #711604;
     padding: 60px 20px;
     gap: 20px;
-    transition: right 0.3s ease-in-out;
+    transform: translateX(100%);   /* hidden by default */
+    transition: transform 0.4s ease-in-out; /* smooth animation */
     z-index: 999;
   }
 
   .nav-menu.active {
-    right: 0;             /* slides in */
+    transform: translateX(0); /* slides in */
+  }
+
+  .nav-menu.closing {
+    transform: translateX(100%); /* slides out smoothly */
   }
 
   .nav-list {
@@ -187,6 +192,7 @@
     display: block;
   }
 }
+
 .logo-wrapper {
   display: flex;
   align-items: center; /* Aligns logo and name vertically */
@@ -216,18 +222,51 @@
 
 </style>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // Toggle menu
+    toggleBtn.addEventListener('click', () => {
+      if (navMenu.classList.contains('active')) {
+        closeMenu();
+      } else {
+        navMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // Function to close menu with animation
+    function closeMenu() {
+      navMenu.classList.add('closing');
+      document.body.style.overflow = '';
+
+      navMenu.addEventListener('transitionend', () => {
+        navMenu.classList.remove('active', 'closing');
+      }, { once: true });
+    }
+
+    // Close on nav link click
+    document.querySelectorAll('.nav-list a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  });
+</script>
+
 
 
 <!-- Header -->
-
-<!-- Banner -->
+<!-- 
+Banner
 <section class="image_banner">
-  <img src="img/banner-4.jpg" alt="Banner 1" class="banner_img active">
+  <img src="img/banner-1.jpg" alt="Banner 1" class="banner_img active">
   <img src="img/banner-2.jpg" alt="Banner 2" class="banner_img">
-  <!-- <img src="img/banner-3.jpg" alt="Banner 2" class="banner_img"> -->
-  <img src="img/banner-1.jpg" alt="Banner 2" class="banner_img">
+  <img src="img/banner-3.jpg" alt="Banner 2" class="banner_img">
+  <img src="img/banner-4.jpg" alt="Banner 2" class="banner_img">
  
 </section>
+
 
 <style>
   .image_banner {
@@ -264,39 +303,82 @@
 
 </style>
 <!-- Scripts -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-  const toggleBtn = document.querySelector('.nav-toggle');
-  const navMenu = document.querySelector('.nav-menu');
 
-  // Mobile menu toggle
-  toggleBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-  });
 
-  // ====== Banner Auto Slide ======
-  const banners = document.querySelectorAll('.banner_img');
-  let currentIndex = 0;
-  const totalBanners = banners.length;
+<!-- banner  -->
+<section class="image_banner">
+  <img src="img/banner-1.jpg" alt="Banner 1" class="banner_img active">
+  <img src="img/banner-2.jpeg" alt="Banner 2" class="banner_img">
+  <img src="img/banner-3.jpg" alt="Banner 3" class="banner_img">
+  <img src="img/banner-4.jpg" alt="Banner 3" class="banner_img">
+</section>
 
-  function showNextBanner() {
-    banners[currentIndex].classList.remove('active'); // hide current
-    currentIndex = (currentIndex + 1) % totalBanners; // move to next
-    banners[currentIndex].classList.add('active');    // show next
+
+<style>
+  .image_banner {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 80vh;
+    position: relative;
+    background-color: #000;
+    overflow: hidden; /* extra gap remove */
   }
 
-  setInterval(showNextBanner, 4000);
+  .banner_img {
+    width: 100%;      /* ✅ full width */
+    height: 100%;     /* ✅ parent ki height cover kare */
+    /* object-fit: contain;  */
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    
+  }
+   .banner_img.active {
+    opacity: 1;
+  }
 
-  // Handle nav link click to close mobile menu
-  window.handleNavClick = function() {
-    navMenu.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-});
+  @media (min-width: 992px) {
+    .image_banner {
+      height: 85vh;
+    }
+  }
 
+  @media (max-width: 991px) {
+    .image_banner {
+      margin-top: -20px;
+      height: 100vh;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .image_banner {
+      height: 50vh;
+      margin-top: -20px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const banners = document.querySelectorAll('.banner_img');
+    let currentIndex = 0;
+
+    function showNextBanner() {
+      banners[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % banners.length;
+      banners[currentIndex].classList.add('active');
+    }
+
+    // First banner visible
+    banners[currentIndex].classList.add('active');
+
+    // Auto change every 4 sec
+    setInterval(showNextBanner, 4000);
+  });
 </script>
-  
+   
 
 <!-- Banner -->
 
@@ -308,7 +390,7 @@
     <div class="about-text">
       <h2 class="section-title">About Us</h2>
       <p class="intro">
-        Welcome to <strong>ಕೊಳ್ಳೇಗಾಲ ಜ್ಯೋತಿಷ್ಯ</strong>, your trusted gateway to understanding the cosmic forces shaping your life. Guided by the wisdom of <strong>Pandit Anil Kumar</strong>, we help you explore astrology in a meaningful and transformative way.
+        Welcome to <strong>ಕೊಳ್ಳೇಗಾಲ ಜ್ಯೋತಿಷ್ಯ</strong>, your trusted gateway to understanding the cosmic forces shaping your life. Guided by the wisdom of <strong>Pandit Anil Kumar Bhatt</strong>, we help you explore astrology in a meaningful and transformative way.
       </p>
 
       <p>
@@ -318,7 +400,7 @@
         Our mission is to make astrology accessible, reliable, and empowering. Whether you are curious about career paths, relationships, health, or personal growth, we provide precise readings and practical advice to navigate life’s journey.
       </p>
       <p class="closing-quote">
-        <em>"Astrology is like a gateway to a more cosmic world view. Let Pandit Anil Kumar show you the path."</em>
+        <em>"Astrology is like a gateway to a more cosmic world view. Let Pandit Anil Kumar Bhatt show you the path."</em>
       </p>
     </div>
 
@@ -534,15 +616,7 @@
 
 </div>
 
-<!-- Stars Animation -->
-<div class="star-bg">
-  <div class="star"></div>
-  <div class="star"></div>
-  <div class="star"></div>
-  <div class="star"></div>
-  <div class="star"></div>
-  <div class="star"></div>
-</div>
+
 
 <style>
 /* Grid Layout */
@@ -624,33 +698,6 @@
   }
 }
 
-/* Star Background */
-.star-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.star {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #fff;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: float 10s linear infinite;
-}
-
-.star:nth-child(1) {top: 10%; left: 20%; animation-duration: 12s;}
-.star:nth-child(2) {top: 30%; left: 70%; animation-duration: 8s;}
-.star:nth-child(3) {top: 50%; left: 40%; animation-duration: 15s;}
-.star:nth-child(4) {top: 70%; left: 60%; animation-duration: 10s;}
-.star:nth-child(5) {top: 20%; left: 80%; animation-duration: 14s;}
-.star:nth-child(6) {top: 60%; left: 30%; animation-duration: 11s;}
 
 @keyframes float {
   0% {transform: translateY(0) scale(1);}
@@ -679,7 +726,7 @@
         <h3>Get In Touch</h3>
         <p><strong>Phone:</strong> <a href="tel:+919900114843">+91 9900114843</a></p>
         <p><strong>Email:</strong> <a href="mailto:anilakumarbhatt269@gmail.com">anilakumarbhatt269@gmail.com</a></p>
-        <p><strong>Address:</strong> Penya, 1st stage, metro station, opposite to Venkateshwara Bakery, 1st floor</p>
+        <p><strong>Address:</strong> Penya, 1st stage, Venkateshwara Bakery, 1st floor</p>
       </div>
 
       <div class="contact-form">
@@ -692,18 +739,6 @@
         </form>
         
       </div>
-    </div>
-
-    <!-- Floating Stars -->
-    <div class="contact-star-bg">
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
     </div>
   </div>
 </section>
@@ -830,41 +865,10 @@
   transform: translateY(-3px);
 }
 
-/* Floating Stars */
-.contact-star-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
 
-.contact-star-bg .star {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  background: #B11C1C;
-  border-radius: 50%;
-  opacity: 0.9;
-  animation: floatContact 12s linear infinite;
-}
 
-.contact-star-bg .star:nth-child(1) {top: 10%; left: 20%; animation-duration: 12s;}
-.contact-star-bg .star:nth-child(2) {top: 30%; left: 70%; animation-duration: 8s;}
-.contact-star-bg .star:nth-child(3) {top: 50%; left: 40%; animation-duration: 15s;}
-.contact-star-bg .star:nth-child(4) {top: 70%; left: 60%; animation-duration: 10s;}
-.contact-star-bg .star:nth-child(5) {top: 20%; left: 80%; animation-duration: 14s;}
-.contact-star-bg .star:nth-child(6) {top: 60%; left: 30%; animation-duration: 11s;}
-.contact-star-bg .star:nth-child(7) {top: 40%; left: 10%; animation-duration: 13s;}
-.contact-star-bg .star:nth-child(8) {top: 80%; left: 50%; animation-duration: 9s;}
 
-@keyframes floatContact {
-  0% {transform: translateY(0) scale(1);}
-  50% {transform: translateY(-25px) scale(1.2);}
-  100% {transform: translateY(0) scale(1);}
-}
+
 
 /* Responsive */
 @media (max-width: 992px) {
