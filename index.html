@@ -335,7 +335,7 @@
 
 <!-- Banner -->
 
-<!-- about Us -->
+<!-- About Us Section -->
 <section class="about-us" id="about">
   <div class="container about-container">
     
@@ -360,15 +360,44 @@
     <!-- Right Image Section -->
     <div class="about-images">
       <img src="img/logo.png" alt="Pandit Anil Kumar" class="main-img">
-    
     </div>
     
   </div>
 </section>
 
+<!-- Astrology Insights Section -->
+<section class="about-us about-alt">
+  <div class="container about-container">
+    
+    <!-- Left Image Section -->
+    <div class="about-images">
+      <img src="img/chart.png" alt="Astrology Chart" class="main-img">
+    </div>
+
+    <!-- Right Text Section -->
+    <div class="about-text">
+      <h2 class="section-title">Astrology Insights</h2>
+      <p class="intro">
+        An astrology chart is more than just symbols — it is a detailed map of your life, revealing the patterns and energies that shape your journey.
+      </p>
+      <p>
+        At <strong>ಕೊಳ್ಳೇಗಾಲ ಜ್ಯೋತಿಷ್ಯ</strong>, we carefully analyze your birth chart to offer meaningful guidance on career, health, relationships, and spiritual growth. Each chart is unique, providing insights that help you align with your true path.
+      </p>
+      <p>
+        By interpreting planetary positions, houses, and aspects, Pandit Anil Kumar Bhatt ensures that you not only understand your present but also prepare wisely for the future.
+      </p>
+      <p class="closing-quote">
+        <em>"Your chart is like a cosmic blueprint — unlocking the key to your destiny."</em>
+      </p>
+    </div>
+
+  </div>
+</section>
+
 <style>
-  #about {
-  scroll-margin-top: 20px; /* Adjust based on your header height */
+/* General About Us Section */
+#about {
+  scroll-margin-top: 20px; /* Adjust based on header height */
 }
 .about-us {
   padding: 80px 20px;
@@ -379,9 +408,9 @@
 
 .about-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
   gap: 40px;
@@ -390,8 +419,8 @@
 .about-text {
   flex: 1;
   min-width: 300px;
+  order: 2; /* Content second (right) on desktop */
 }
-
 .section-title {
   font-size: 36px;
   color: #B11C1C;
@@ -418,14 +447,21 @@
   margin-top: 20px;
 }
 
-/* Images Section */
 .about-images {
   flex: 1;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  min-width: 300px;
-  position: relative;
+  order: 1; /* Image first (left) on desktop */
+}
+
+/* Alternate Section: image left, text right still */
+.about-alt .about-text {
+  order: 2;
+}
+.about-alt .about-images {
+  order: 1;
 }
 
 .main-img {
@@ -434,48 +470,41 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.small-img {
-  width: 48%;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  position: absolute;
+/* Alternate Section (Image Left - Text Right) */
+.about-alt .about-container {
+  flex-direction: row-reverse; /* Image left, text right */
 }
-
-.img-top {
-  top: -20px;
-  left: -20px;
-}
-
-.img-bottom {
-  bottom: -20px;
-  right: -20px;
-}
-
-/* Responsive */
 @media (max-width: 991px) {
-  .about-container {
+  .about-container,
+  .about-alt .about-container {
     flex-direction: column;
     gap: 30px;
   }
 
+  /* Default About Us: text first, image second (already correct) */
+  .about-text {
+    order: 1;
+  }
   .about-images {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    gap: 15px;
+    order: 2;
   }
 
-  .small-img {
-    position: static;
-    width: 45%;
+  /* For About-Alt section: text first, image second */
+  .about-alt .about-text {
+    order: 1;
+  }
+  .about-alt .about-images {
+    order: 2;
   }
 
   .main-img {
     width: 100%;
   }
 }
+
 </style>
+
+
 
 <!-- About Us -->
 
@@ -679,7 +708,7 @@
         <h3>Get In Touch</h3>
         <p><strong>Phone:</strong> <a href="tel:+919900114843">+91 9900114843</a></p>
         <p><strong>Email:</strong> <a href="mailto:anilkumarbhatt269@gmail.com">anilkumarbhatt269@gmail.com</a></p>
-        <p><strong>Address:</strong> Penya, 1st stage, metro station , opposite to venkateshwara bakery , 1st floor. </p>
+        <p><strong>Address:</strong> Penya, 1st stage, above venkateshwara bakery, 1st floor. </p>
       </div>
 
       <div class="contact-form">
@@ -870,6 +899,12 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
     <center>
       <h2 class="stats-title">Our Achievements</h2>
       <p class="stats-subtitle">Trusted by thousands of clients, delivering effective solutions with experience and dedication.</p>
+      <p class="stats-description">
+        Over the years, <strong>ಕೊಳ್ಳೇಗಾಲ ಜ್ಯೋತಿಷ್ಯ</strong> has built a reputation of trust and accuracy. 
+        From guiding individuals in their personal lives to helping businesses with strategic decisions, 
+        our commitment to authentic astrology has touched countless lives. 
+        These numbers are not just statistics — they represent <em>real people, real solutions, and real impact</em>.
+      </p>
     </center>
 
     <div class="stats-grid">
@@ -932,6 +967,13 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.stats-description {
+  font-size: 17px;
+  color: #555;
+  max-width: 850px;
+  margin: 15px auto 40px;
+  line-height: 1.7;
 }
 
 .stat-box:hover {
@@ -1196,7 +1238,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   <div class="text-center">
     <h2>Our Location</h2>
     <p>
-      Visit us near <strong>Peenya Metro Station</strong>, opposite <strong>Venkateshwara Bakery</strong>, 1st Floor, Bangalore.
+      Visit us near <strong> Penya, 1st stage, above venkateshwara bakery, 1st floor.</strong>.
     </p>
   </div>
 
@@ -1353,7 +1395,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
     <div class="footer-contact">
       <h3>Contact</h3>
       <ul>
-        <li>📍 <a href="https://www.google.com/maps/search/?api=1&query=Peenya,+1st+Stage,+Metro+Station,+opposite+to+Venkateshwara+Bakery,+1st+Floor,+Bangalore" target="_blank" style="color:#fff; text-decoration:none;">Peenya, 1st Stage, Metro Station, opposite Venkateshwara Bakery, 1st Floor, Bangalore</a></li>
+        <li>📍 <a href="https://www.google.com/maps/search/?api=1&query=Peenya,+1st+Stage,+Metro+Station,+opposite+to+Venkateshwara+Bakery,+1st+Floor,+Bangalore" target="_blank" style="color:#fff; text-decoration:none;"> Penya, 1st stage, above venkateshwara bakery, 1st floor.</a></li>
         <li>📞 <a href="tel:+919900114843" style="color:#fff; text-decoration:none;">+91 99001 14843</a></li>
         <li>✉️ <a href="mailto:anilkumarbhatt269@gmail.com" style="color:#fff; text-decoration:none;">anilkumarbhatt269@gmail.com</a></li>
       </ul>
