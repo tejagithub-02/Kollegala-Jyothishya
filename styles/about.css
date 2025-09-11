@@ -1,0 +1,109 @@
+
+
+
+#about {
+  scroll-margin-top: 20px; 
+}
+.about-us {
+  padding: 80px 20px;
+  background-color: #fdf6f0;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 300px;
+  order: 2; /* Content second (right) on desktop */
+}
+.section-title {
+  font-size: 36px;
+  color: #B11C1C;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.intro {
+  font-size: 20px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.closing-quote {
+  font-size: 20px;
+  color: #711604;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+.about-images {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  order: 1; /* Image first (left) on desktop */
+}
+
+/* Alternate Section: image left, text right still */
+.about-alt .about-text {
+  order: 2;
+}
+.about-alt .about-images {
+  order: 1;
+}
+
+.main-img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Alternate Section (Image Left - Text Right) */
+.about-alt .about-container {
+  flex-direction: row-reverse; /* Image left, text right */
+}
+@media (max-width: 991px) {
+  .about-container,
+  .about-alt .about-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* Default About Us: text first, image second (already correct) */
+  .about-text {
+    order: 1;
+  }
+  .about-images {
+    order: 2;
+  }
+
+  /* For About-Alt section: text first, image second */
+  .about-alt .about-text {
+    order: 1;
+  }
+  .about-alt .about-images {
+    order: 2;
+  }
+
+  .main-img {
+    width: 100%;
+  }
+}
+
